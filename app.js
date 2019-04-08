@@ -1,6 +1,9 @@
 var express = require('express');
 var bodyParser=require('body-parser');
 var app = express();
+var cors = require('cors');
+
+app.use(cors());
 app.set('view engine','ejs');
 var pass={"Marc":"1234","David":"4321"};
 
