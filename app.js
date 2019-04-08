@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser=require('body-parser');
 var app = express();
 app.set('view engine','ejs');
-var pass={Marc:"1234",David:"4321"};
+var pass={"Marc":"1234","David":"4321"};
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.get('/', function (req, res) {
@@ -25,7 +25,17 @@ app.post('/form_url',function(req,res){
 	
 	
 });
-
+app.get('/api/login/:user/:pass', function (req, res){
+  for(var item in pass){
+    if(item===req.params.user && pass[item]===req.params.pass){
+      var msgOK = {"status":"OK"};
+      res.send(JSON.stringify(msgOK));
+      return;
+    }
+  }
+  var msgFail = {"status":"ERROR"};
+  res.send(JSON.stringify(msgFail));
+});
 app.listen(process.env.PORT || 5000, function () {
   console.log('Example app listening on port 5000!');
 });
